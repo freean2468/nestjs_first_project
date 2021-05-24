@@ -1,5 +1,7 @@
-import { Controller, Get, Post, Req, Param, Body, Query } from '@nestjs/common';
+import { Controller, Get, Post, Req, Param, Body, Query, HttpException, HttpStatus, UseFilters, ParseIntPipe } from '@nestjs/common';
 import { Request } from 'express';
+import { ForbiddenException } from 'src/exceptions/forbidden.exception';
+import { HttpExceptionFilter } from 'src/exceptions/http-exception.filter';
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { Cat } from './interfaces/cat.interface';
@@ -14,7 +16,17 @@ export class CatsController {
     }
 
     @Get()
+    // @UseFilters(HttpExceptionFilter)
     async findAll(): Promise<Cat[]> {
+        // throw new HttpException('My Forbidden', HttpStatus.FORBIDDEN);
+
+        // throw new HttpException({
+        //     status: HttpStatus.FORBIDDEN,
+        //     error: 'This is a custom message',
+        // }, HttpStatus.FORBIDDEN);
+
+        throw new ForbiddenException();
+
         return this.catsService.findAll();
     }
 
@@ -24,7 +36,8 @@ export class CatsController {
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string): string {
+    findOne(@Param('id', ParseIntPipe) id: number) {
+        // throw new ForbiddenException();
         return `This action returns a #${id} cat`;
     }
 

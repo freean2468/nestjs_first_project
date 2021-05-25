@@ -1,15 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { Cat } from './interfaces/cat.interface';
+import { Cat } from '../graphql.schema';
 
 @Injectable()
 export class CatsService {
-    private readonly cats: Cat[] = [];
+    private readonly cats: Array<Cat> = [
+        { id: 1, name: 'Cat', age: 5 },
+    ];
 
     create(cat: Cat) {
         this.cats.push(cat);
     }
 
-    findAll(): Cat[] {
+    findAll(): Array<Cat> {
         return this.cats;
+    }
+
+    findOneById(id: number) {
+        return id;
+        // return this.cats.find(cat => cat.id === id);
     }
 }

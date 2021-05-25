@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CatsController } from './cats.controller';
+import { CatsResolver } from './cats.resolver';
 import { CatsService } from './cats.service';
 
 @Module({
@@ -7,10 +8,14 @@ import { CatsService } from './cats.service';
         CatsController
     ],
     providers: [
-        CatsService
+        {
+            provide: CatsService,
+            useClass: CatsService
+        },
+        CatsResolver
     ],
     exports: [
-        CatsService
+        // CatsService
     ]
 })
 export class CatsModule {}

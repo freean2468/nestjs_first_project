@@ -2,17 +2,22 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
 import { CatsModule } from './cats/cats.module';
 import { logger } from './logger.middleware';
 import { CatsController } from './cats/cats.controller';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './exceptions/http-exception.filter';
+import { join } from 'path';
 
 @Module({
   imports: [
-    // GraphQLModule.forRoot({}),
-    UsersModule,
+    GraphQLModule.forRoot({
+      typePaths: ['./**/*.graphql'],
+      definitions: {
+        path: join(process.cwd(), 'src/graphql.schema.ts'),
+        outputAs: 'class',
+      }
+    }),
     CatsModule,
   ],
   controllers: [

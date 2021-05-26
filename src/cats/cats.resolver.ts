@@ -15,7 +15,7 @@ export class CatsResolver {
     }
 
     @Query('cat')
-    findOneById(@Args('id', ParseIntPipe) id: number): number {
+    findOneById(@Args('id', ParseIntPipe) id: number): Cat {
         return this.catsService.findOneById(id);
     }
 }

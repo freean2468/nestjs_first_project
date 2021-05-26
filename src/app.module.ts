@@ -8,6 +8,7 @@ import { CatsController } from './cats/cats.controller';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './exceptions/http-exception.filter';
 import { join } from 'path';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { join } from 'path';
       }
     }),
     CatsModule,
+    UsersModule,
   ],
   controllers: [
     AppController,

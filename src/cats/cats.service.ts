@@ -16,7 +16,11 @@ export class CatsService {
     }
 
     findOneById(id: number) {
-        return id;
+        return {
+            id:id,
+            name: 'TestCat',
+            age: 100
+        };
         // return this.cats.find(cat => cat.id === id);
     }
 }
